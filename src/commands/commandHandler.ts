@@ -12,7 +12,7 @@ import intReply from '../utils/intReply';
 
 export default async function commandHandler(i: ChatInputCommandInteraction) {
   if (!i.guild) {
-    return intReply(i, 'UlmaņBota komandas var izmantot tikai serveros');
+    return intReply(i, 'Commands must be run in a server');
   }
 
   if (i.channel?.type !== ChannelType.GuildText) return;
@@ -21,7 +21,7 @@ export default async function commandHandler(i: ChatInputCommandInteraction) {
     !i.guild.members.me!.permissionsIn(i.channelId).has(PermissionsBitField.Flags.UseExternalEmojis) ||
     !i.guild.roles.everyone.permissionsIn(i.channelId).has(PermissionsBitField.Flags.UseExternalEmojis)
   ) {
-    return intReply(i, smallEmbed('UlmaņBotam šajā kanālā trūkst atļauja **"Use External Emojis"**', 0xffffff));
+    return intReply(i, smallEmbed('EES requires the following permissions to run: **"Use External Emojis"**', 0xffffff));
   }
 
   const userId = i.user.id;
@@ -37,7 +37,7 @@ export default async function commandHandler(i: ChatInputCommandInteraction) {
       return intReply(
         i,
         ephemeralReply(
-          `Šī komanda jau ir **[aktīva](https://discord.com/channels/${guildId}/${channelId}/${messageId})**`
+          `This command is already **[active](https://discord.com/channels/${guildId}/${channelId}/${messageId})**`
         )
       );
     }
@@ -54,7 +54,7 @@ export default async function commandHandler(i: ChatInputCommandInteraction) {
           return intReply(
             i,
             ephemeralReply(
-              `Komandu **/${command.data.name}** tu varēsi izmantot pēc\n` +
+              `Command **/${command.data.name}** will be available after\n` +
                 `\`\`\`${millisToReadableTime(command.cooldown - timePassed)}\`\`\``
             )
           );
