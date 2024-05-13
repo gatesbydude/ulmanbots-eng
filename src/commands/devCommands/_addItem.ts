@@ -9,28 +9,28 @@ import intReply from '../../utils/intReply';
 import allItemAutocomplete from '../economyCommands/info/allItemAutocomplete';
 
 const _addItem: Command = {
-  description: 'Pievienot mantu inventārā',
+  description: 'Add an item in an inventory',
   color: 0xffffff,
   data: {
     name: 'additem',
-    description: 'Pievienot mantu inventārā',
+    description: 'Add an item in an inventory',
     options: [
       {
-        name: 'lietotājs',
-        description: 'Lietotājs kam pievienot lietu',
+        name: 'targetusr',
+        description: 'User that shall receive the item',
         type: ApplicationCommandOptionType.User,
         required: true,
       },
       {
-        name: 'nosaukums',
-        description: 'Kādu lietu pievienot',
+        name: 'name',
+        description: 'The name of the item to add',
         type: ApplicationCommandOptionType.String,
         autocomplete: true,
         required: true,
       },
       {
-        name: 'daudzums',
-        description: 'Cik lietas pievienot',
+        name: 'amount',
+        description: 'The amount of items to add (INTEGERS ONLY)',
         type: ApplicationCommandOptionType.Integer,
         required: true,
       },
@@ -38,9 +38,9 @@ const _addItem: Command = {
   },
   autocomplete: allItemAutocomplete('⛔'),
   async run(i) {
-    const target = i.options.getUser('lietotājs')!;
-    const itemToAddKey = i.options.getString('nosaukums')!;
-    const amountToAdd = i.options.getInteger('daudzums')!;
+    const target = i.options.getUser('targetusr')!;
+    const itemToAddKey = i.options.getString('name')!;
+    const amountToAdd = i.options.getInteger('amount')!;
 
     const itemToAdd = itemList[itemToAddKey];
     if (!itemToAdd) {
@@ -53,7 +53,7 @@ const _addItem: Command = {
       i,
       embedTemplate({
         i,
-        description: `Tu pievienoji <@${target.id}> ${itemString(itemToAdd, amountToAdd, true)}`,
+        description: `You added <@${target.id}> ${itemString(itemToAdd, amountToAdd, true)}`,
         color: this.color,
       })
     );
