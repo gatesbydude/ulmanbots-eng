@@ -71,7 +71,7 @@ export default async function izsoleCreate(i: ChatInputCommandInteraction) {
     await i.showModal(
       new ModalBuilder()
         .setCustomId(`izsole_new_modal_${itemKey}`)
-        .setTitle(`Atribūti - ${itemObj.nameNomVsk}`)
+        .setTitle(`Attributes - ${itemObj.nameNomVsk}`)
         .addComponents(
           ...Object.keys(itemObj.attributes).map(key =>
             new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents(
@@ -127,7 +127,7 @@ export default async function izsoleCreate(i: ChatInputCommandInteraction) {
           edit: {
             embeds: embedTemplate({
               i,
-              title: '✅ Izveidota jauna izsole',
+              title: '✅ New auction created',
               description: izsoleItemString(newAuction),
               color: 0x00cc00,
             }).embeds,
