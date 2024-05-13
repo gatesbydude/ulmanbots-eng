@@ -20,9 +20,9 @@ export default async function loto(userId: string, guildId: string, laimesti: Ch
 
   await addLati(userId, guildId, res.obj.reward);
 
-  let text = 'Tu neko nelaimēji :(';
+  let text = 'You won nothing! :(';
   if (res.key !== 'lose') {
-    text = `Tu laimēji ${res.obj.name} laimestu - **${res.obj.reward}** latus!`;
+    text = `You won ${res.obj.name} victory - **${res.obj.reward}** latus!`;
   }
 
   return { text, color: res.obj.color };
