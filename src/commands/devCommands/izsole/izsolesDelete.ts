@@ -10,8 +10,8 @@ import { izsoleItemString } from './izsoleEmbeds';
 
 const deleteConfirmComponents = [
   new ActionRowBuilder<ButtonBuilder>().addComponents(
-    new ButtonBuilder().setCustomId('izsole_delete_yes').setLabel('Jā').setStyle(ButtonStyle.Primary),
-    new ButtonBuilder().setCustomId('izsole_delete_no').setLabel('Nē').setStyle(ButtonStyle.Danger)
+    new ButtonBuilder().setCustomId('izsole_delete_yes').setLabel('Yes').setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setCustomId('izsole_delete_no').setLabel('No').setStyle(ButtonStyle.Danger)
   ),
 ];
 
@@ -20,13 +20,13 @@ export default async function izsolesDelete(i: ChatInputCommandInteraction) {
   if (!id) return intReply(i, errorEmbed);
 
   const izsole = await findAuctionById(id);
-  if (!izsole) return intReply(i, ephemeralReply(`Izsole ar id \`${id}\` netika atrasta`));
+  if (!izsole) return intReply(i, ephemeralReply(`Auction with the id \`${id}\` was not found`));
 
   const msg = await intReply(
     i,
     embedTemplate({
       i,
-      title: '❔ Vai tiešām izdzēst šo izsoli?',
+      title: '❔ Are you sure you want to delete thid auction?',
       description: izsoleItemString(izsole),
       components: deleteConfirmComponents,
     })
@@ -47,7 +47,7 @@ export default async function izsolesDelete(i: ChatInputCommandInteraction) {
           edit: {
             embeds: embedTemplate({
               i,
-              title: '🔴 Izsole izdzēsta',
+              title: '🔴 Auction deleted!',
               color: 0xee0000,
               description: izsoleItemString(izsole),
             }).embeds,
