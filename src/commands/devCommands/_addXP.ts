@@ -7,21 +7,21 @@ import latiString from '../../embeds/helpers/latiString';
 import intReply from '../../utils/intReply';
 
 const _addXP: Command = {
-  description: 'Pievienot UlmaņPunktus',
+  description: 'Add EXP',
   color: 0xffffff,
   data: {
     name: 'addxp',
-    description: 'Pievienot UlmaņPunktus',
+    description: 'Add EXP',
     options: [
       {
-        name: 'lietotājs',
-        description: 'Lietotājs kam pievienot UlmaņPunktus',
+        name: 'user',
+        description: 'User that shall receive the EXP',
         type: ApplicationCommandOptionType.User,
         required: true,
       },
       {
-        name: 'daudzums',
-        description: 'Cik UlmaņPunktus pievienot',
+        name: 'amount',
+        description: 'Amount of EXP to add',
         type: ApplicationCommandOptionType.Integer,
         required: true,
       },
