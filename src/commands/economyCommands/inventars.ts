@@ -33,19 +33,19 @@ export type ItemType = 'not_usable' | 'usable' | 'special' | 'not_sellable';
 
 export const itemTypes: Record<ItemType, { text: string; emoji: string }> = {
   not_sellable: {
-    text: 'īpaša izmantojama un **nepārdodama** un manta',
+    text: 'special and **unsellable** and an item',
     emoji: '<:check3:1017598453032943636>',
   },
   special: {
-    text: 'izmantojama manta ar atribūtiem',
+    text: 'usable item with attributes',
     emoji: '<:check2:1017601966555267132>',
   },
   usable: {
-    text: 'izmantojama manta',
+    text: 'usable item',
     emoji: iconEmojis.checkmark,
   },
   not_usable: {
-    text: 'neizmantojama manta',
+    text: 'unusable item',
     emoji: iconEmojis.cross,
   },
 };
@@ -116,7 +116,7 @@ function mapItems({ items, specialItems }: UserProfile) {
         name: itemString(item, null, false, attributes),
         value:
           `${itemTypes[currentItemType].emoji} ` +
-          `${currentItemType === 'not_sellable' ? '??? lati' : latiString(value)}\n` +
+          `${currentItemType === 'not_sellable' ? '??? euros' : latiString(value)}\n` +
           displayAttributes(specialItem),
         inline: true,
       };
@@ -182,18 +182,18 @@ function invEmbed(
 
   return embedTemplate({
     i,
-    title: targetUser.userId === i.user.id ? 'Tavs inventārs' : `${userString(target)} inventārs`,
+    title: targetUser.userId === i.user.id ? 'Your inventory' : `${userString(target)} inventory`,
     description:
       items.length + specialItems.length
         ? `**${countItems(items) + specialItems.length}** ${mantaVaiMantas(items, specialItems)} no **${itemCap}**\n` +
-          `Inventāra vērtība: ${latiString(totalValue, false, true)}\n\n` +
+          `Inventory worth: ${latiString(totalValue, false, true)}\n\n` +
           Object.entries(itemTypes).reduce(
             (prev, [key, { text, emoji }]) =>
               itemTypesInv.includes(key as ItemType) ? prev + `${emoji} - ${text}\n` : prev,
             ''
           ) +
           '\u2800'
-        : 'Tev nav nevienas mantas (diezgan bēdīgi)\nIzmanto komandu `/palidziba`',
+        : 'You do not have a single item (very sad!)\nUse `/help`',
     color: commandColors.inventars,
     fields: fieldsToShow,
   }).embeds;
@@ -208,12 +208,12 @@ function paginationRow(currentPage: number, totalPages: number) {
       .setDisabled(true),
     new ButtonBuilder()
       .setCustomId('inv_prev_page')
-      .setLabel('Iepriekšējā lapa')
+      .setLabel('Previous page')
       .setDisabled(currentPage === 0)
       .setStyle(currentPage === 0 ? ButtonStyle.Secondary : ButtonStyle.Primary),
     new ButtonBuilder()
       .setCustomId('inv_next_page')
-      .setLabel('Nākamā lapa')
+      .setLabel('Next page')
       .setDisabled(currentPage + 1 === totalPages)
       .setStyle(currentPage + 1 === totalPages ? ButtonStyle.Secondary : ButtonStyle.Primary)
   );
@@ -223,7 +223,7 @@ function sellRow({ items }: UserProfile, buttonsPressed: ('visas' | 'neizmantoja
   const row = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder()
       .setCustomId('inv_pardot_visas')
-      .setLabel('Pārdot visas mantas')
+      .setLabel('Sell all items')
       .setStyle(buttonsPressed.includes('visas') ? ButtonStyle.Success : ButtonStyle.Primary)
       .setDisabled(buttonsPressed.includes('visas'))
   );
@@ -233,7 +233,7 @@ function sellRow({ items }: UserProfile, buttonsPressed: ('visas' | 'neizmantoja
     row.addComponents(
       new ButtonBuilder()
         .setCustomId('inv_pardot_neizmantojamas')
-        .setLabel('Pārdot neizmantojamās mantas')
+        .setLabel('Sell unusable items')
         .setStyle(buttonsPressed.includes('neizmantojamas') ? ButtonStyle.Success : ButtonStyle.Primary)
         .setDisabled(buttonsPressed.includes('neizmantojamas'))
     );
@@ -274,7 +274,7 @@ function invComponents(
 
 const inventars: Command = {
   description:
-    'Apskatīt savu, vai cita lietotāja inventāru\n' +
+    'Check your or inventories of other users\n' +
     'Inventārā tiek glabātas visas lietotāja mantas\n' +
     'Caur inventāru ir iespējams arī pārdot nelietojamās vai visas mantas\n\n' +
     'Katra lietotāja inventāram ir mantu limits - **50**\n' +
