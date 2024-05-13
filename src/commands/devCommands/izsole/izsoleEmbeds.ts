@@ -29,17 +29,17 @@ export function confirmNewIzsoleMsg(
 ): InteractionReplyOptions & { fetchReply: true } {
   return embedTemplate({
     i,
-    title: 'Izveidot jaunu izsoli?',
+    title: 'Create new auction?',
     description:
-      `Manta: **${itemString(itemList[itemKey], itemAmount)}**\n` +
+      `Item: **${itemString(itemList[itemKey], itemAmount)}**\n` +
       (attributes
         ? `${Object.entries(attributes)
             .map(([key, value]) => `${key}: ${value}`)
             .join('\n')}\n`
         : '') +
-      `\nSākuma cena: ${latiString(startPrice, false, true)}\n\n` +
-      `No: **${time(new Date(startDate), 't')}** ${time(new Date(startDate), 'd')}\n` +
-      `Līdz: **${time(new Date(endDate), 't')}** ${time(new Date(endDate), 'd')}`,
+      `\nStarting price: ${latiString(startPrice, false, true)}\n\n` +
+      `From: **${time(new Date(startDate), 't')}** ${time(new Date(startDate), 'd')}\n` +
+      `Until: **${time(new Date(endDate), 't')}** ${time(new Date(endDate), 'd')}`,
     color: 0xffffff,
     components: [izsoleConfirmComponents],
   });
@@ -63,8 +63,8 @@ export function izsoleItemString({
           .map(([key, value]) => `${key}: ${value}`)
           .join('\n')}\n`
       : '') +
-    `\nSākuma cena: ${latiString(startPrice, false, true)}\n` +
-    `No: **${time(new Date(startDate), 't')}** ${time(new Date(startDate), 'd')}\n` +
-    `Līdz: **${time(new Date(endDate), 't')}** ${time(new Date(endDate), 'd')}`
+    `\nStarting price: ${latiString(startPrice, false, true)}\n` +
+    `From: **${time(new Date(startDate), 't')}** ${time(new Date(startDate), 'd')}\n` +
+    `Until: **${time(new Date(endDate), 't')}** ${time(new Date(endDate), 'd')}`
   );
 }
