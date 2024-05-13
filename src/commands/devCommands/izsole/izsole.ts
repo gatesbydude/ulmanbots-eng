@@ -14,43 +14,43 @@ const izsole: Command = {
   description: '',
   color: 0xffffff,
   data: {
-    name: 'izsole',
-    description: 'izsole',
+    name: 'auction',
+    description: 'auction',
     options: [
       {
         name: 'create',
-        description: 'Izveidot jaunu izsoli',
+        description: 'Create a new auction',
         type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: 'name',
-            description: 'Mantas nosaukums',
+            description: 'Item name',
             type: ApplicationCommandOptionType.String,
             autocomplete: true,
             required: true,
           },
           {
             name: 'start_price',
-            description: 'Sākuma cena',
+            description: 'Starting price',
             type: ApplicationCommandOptionType.Integer,
             min_value: 1,
             required: true,
           },
           {
             name: 'start_date',
-            description: 'Sākuma datums (diena/mēnesis stunda:minūte - "18/11 18:00")',
+            description: 'Start time (day/month hour:minute - "18/11 18:00")',
             type: ApplicationCommandOptionType.String,
             required: true,
           },
           {
             name: 'end_date',
-            description: 'Beigu datums (diena/mēnesis stunda:minūte - "18/11 18:00")',
+            description: 'End time (day/month hour:minute - "18/11 18:00")',
             type: ApplicationCommandOptionType.String,
             required: true,
           },
           {
             name: 'amount',
-            description: 'Mantas daudzums',
+            description: 'Item amount',
             type: ApplicationCommandOptionType.Integer,
             min_value: 1,
           },
@@ -58,12 +58,12 @@ const izsole: Command = {
       },
       {
         name: 'delete',
-        description: 'Izdzēst izsoli',
+        description: 'Delete auction',
         type: ApplicationCommandOptionType.Subcommand,
         options: [
           {
             name: 'id',
-            description: 'Izsoles id',
+            description: 'Auction id',
             type: ApplicationCommandOptionType.String,
             required: true,
           },
@@ -71,7 +71,7 @@ const izsole: Command = {
       },
       {
         name: 'list',
-        description: 'Saraksts ar izsolēm',
+        description: 'List of auctions',
         type: ApplicationCommandOptionType.Subcommand,
       },
       {
