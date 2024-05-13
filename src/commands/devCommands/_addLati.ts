@@ -8,29 +8,29 @@ import addLati from '../../economy/addLati';
 import intReply from '../../utils/intReply';
 
 const _addLati: Command = {
-  description: 'Pievienot latus',
+  description: 'Add euros',
   color: 0xffffff,
   data: {
-    name: 'addlati',
-    description: 'Pievienot latus',
+    name: 'addeuros',
+    description: 'Add euros',
     options: [
       {
-        name: 'lietotājs',
-        description: 'Lietotājs kam pievienot latus',
+        name: 'user',
+        description: 'User that shall receive the money',
         type: ApplicationCommandOptionType.User,
         required: true,
       },
       {
-        name: 'latu_daudzums',
-        description: 'Cik latus pievienot',
+        name: 'amount',
+        description: 'The amount of euros to hand out',
         type: ApplicationCommandOptionType.Integer,
         required: true,
       },
     ],
   },
   async run(i) {
-    const target = i.options.getUser('lietotājs')!;
-    const latiToAdd = i.options.getInteger('latu_daudzums')!;
+    const target = i.options.getUser('user')!;
+    const latiToAdd = i.options.getInteger('amount')!;
 
     const targetUser = await findUser(target.id, i.guildId!);
     if (!targetUser) {
